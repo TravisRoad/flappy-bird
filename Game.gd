@@ -9,6 +9,7 @@ var entered := false
 
 
 func _ready():
+	GameManager.speed = GameManager.init_speed
 	randomize()
 
 
@@ -32,7 +33,9 @@ func _on_Bird_game_ends():
 func _on_PipeSpawnTimer_timeout():
 	_swpan_pipe()
 	GameManager.speed *= GameManager.speed_factor
-	pipe_spawn_timer.wait_time /= GameManager.speed_factor
+	self.pipe_spawn_timer.wait_time /= GameManager.speed_factor
+	self.bird.gravity *= GameManager.speed_factor
+	self.bird.up_speed *= GameManager.speed_factor
 
 
 func _swpan_pipe():

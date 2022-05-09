@@ -11,8 +11,9 @@ signal game_ends
 const rotation_alpha = PI / 2.1
 var rotation_speed = 0
 
-const gravity = 300
+var gravity = 400
 var fall_speed = 0
+var up_speed = -150
 
 const init_rotation_speed = PI / 20
 
@@ -43,7 +44,7 @@ func _input(event):
 
 
 func _fly():
-	self.fall_speed = -120
+	self.fall_speed = self.up_speed
 	self.rotation_speed = - PI * 2
 	audio_player.play()
 	animated_sprite.play()

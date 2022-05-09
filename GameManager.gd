@@ -1,8 +1,10 @@
 extends Node
 
 const width = 288
+const init_speed = 50
+
 var speed = 50
-var speed_factor = 1.02
+var speed_factor = 1.01
 
 
 func _ready():
