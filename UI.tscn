@@ -1,0 +1,186 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://flappy-bird-assets/sprites/0.png" type="Texture" id=1]
+[ext_resource path="res://UI.gd" type="Script" id=2]
+[ext_resource path="res://flappy-bird-assets/sprites/panel.png" type="Texture" id=3]
+[ext_resource path="res://ScoreUI.gd" type="Script" id=4]
+[ext_resource path="res://flappy-bird-assets/sprites/white_square.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Node2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 144, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Node2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 620, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "up"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Node2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"points": PoolRealArray( 144, -0.25, 0, 0.25, 0, 144, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Node2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 620, -0.25, 0, 0.6, -316.98, 256, -0.5, 20.1463, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[node name="UI" type="Control" groups=["score"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_vertical_guides_": [ 38.0, 260.0 ]
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -26.0
+margin_right = 26.0
+margin_bottom = 43.0
+script = ExtResource( 4 )
+
+[node name="High" type="TextureRect" parent="HBoxContainer"]
+margin_top = 3.0
+margin_right = 24.0
+margin_bottom = 39.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+stretch_mode = 3
+
+[node name="Low" type="TextureRect" parent="HBoxContainer"]
+margin_left = 28.0
+margin_top = 3.0
+margin_right = 52.0
+margin_bottom = 39.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+stretch_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+"anims/新建动画" = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.227451, 0.215686, 0.215686, 0 )
+position = Vector2( -25, -22 )
+scale = Vector2( 10.7188, 17.4062 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="OpacTween" type="Tween" parent="Sprite"]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 144, 620 )
+
+[node name="Panel" type="Sprite" parent="Node2D"]
+position = Vector2( 0, -28 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 55, 288, 120 )
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Node2D"]
+margin_left = -105.0
+margin_top = 30.0
+margin_right = 115.0
+margin_bottom = 52.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="RestartButton" type="Button" parent="Node2D/ButtonContainer"]
+margin_right = 108.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="Node2D/ButtonContainer"]
+margin_left = 112.0
+margin_right = 220.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Menu"
+
+[node name="ScoreContainer" type="HBoxContainer" parent="Node2D"]
+margin_left = 70.0
+margin_top = -54.0
+margin_right = 122.0
+margin_bottom = -18.0
+rect_scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="High" type="TextureRect" parent="Node2D/ScoreContainer"]
+margin_right = 24.0
+margin_bottom = 36.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+stretch_mode = 3
+
+[node name="Low" type="TextureRect" parent="Node2D/ScoreContainer"]
+margin_left = 28.0
+margin_right = 52.0
+margin_bottom = 36.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+stretch_mode = 3
+
+[node name="BestScoreContainer" type="HBoxContainer" parent="Node2D"]
+margin_left = 70.0
+margin_top = -15.0
+margin_right = 122.0
+margin_bottom = 21.0
+rect_scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="High" type="TextureRect" parent="Node2D/BestScoreContainer"]
+margin_right = 24.0
+margin_bottom = 36.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+stretch_mode = 3
+
+[node name="Low" type="TextureRect" parent="Node2D/BestScoreContainer"]
+margin_left = 28.0
+margin_right = 52.0
+margin_bottom = 36.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+stretch_mode = 3

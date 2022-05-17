@@ -1,4 +1,5 @@
 out/
+addons/*
 
 # Godot-specific ignores
 .import/

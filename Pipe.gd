@@ -1,7 +1,5 @@
 extends Node2D
 
-signal score_plus
-
 var entered := false
 var exited := false
 var finished := false
@@ -17,8 +15,8 @@ func _process(delta):
 
 
 func _on_Area2D_body_entered(body):
-	print("entered")
-	self.emit_signal("score_plus")
+	# print("entered")
+	self.get_tree().call_group("score", "score_up")
 	self.score_audio.play()
 
 func _on_VisibilityNotifier2D_screen_entered():

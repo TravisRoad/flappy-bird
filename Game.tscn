@@ -1,8 +1,79 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GameBackGround.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bird.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://CameraShake.gd" type="Script" id=5]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Bird:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 143, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Bird:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 302, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "bird"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Bird:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 143, -0.25, 0, 0.5, -79.9623, 25, -0.5, 38.0377, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Bird:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"points": PoolRealArray( 302, -0.25, 0, 0.25, 0, 302, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "up"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Node2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"points": PoolRealArray( 144, -0.25, 0, 0.25, 0, 144, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Node2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 620, -0.25, 0, 0.6, -316.98, 256, -0.5, 20.1463, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -22,5 +93,28 @@ z_index = -1
 wait_time = 1.5
 autostart = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/bird = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[node name="HBoxContainer" parent="CanvasLayer/UI" index="0"]
+alignment = 1
+
+[node name="AnimationPlayer" parent="CanvasLayer/UI" index="1"]
+anims/up = SubResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 5 )
+
+[node name="CameraShake" type="Tween" parent="Camera2D"]
+
 [connection signal="game_ends" from="Bird" to="." method="_on_Bird_game_ends"]
 [connection signal="timeout" from="PipeSpawnTimer" to="." method="_on_PipeSpawnTimer_timeout"]
+
+[editable path="CanvasLayer/UI"]
